@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pharma Near You</title>
+<meta name="description" content="Find open pharmacies near you across Europe. Works offline, no account, no server.">
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body { margin: 0; color: #17211D; background: #FAF8F6;
+         font: 16px/1.65 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+
+  header { background: linear-gradient(140deg, #16A66A 0%, #0B7A4B 100%); color: #fff;
+           padding: 64px 0 56px; text-align: center; }
+  header svg { display: block; margin: 0 auto 18px; }
+  h1 { font-size: 40px; line-height: 1.1; margin: 0; letter-spacing: -0.5px; }
+  .tag { font-size: 19px; opacity: 0.92; margin: 10px 0 0; }
+
+  h2 { font-size: 21px; margin: 40px 0 10px; color: #0B7A4B; }
+  p { margin: 12px 0; }
+  ul { padding-left: 22px; margin: 12px 0; }
+  li { margin: 7px 0; }
+
+  .cards { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+           margin: 28px 0 8px; }
+  .card { background: #fff; border: 1px solid #E6EDE9; border-radius: 14px; padding: 18px 18px 20px; }
+  .card h3 { margin: 0 0 6px; font-size: 16px; color: #0B7A4B; }
+  .card p { margin: 0; font-size: 15px; color: #45544D; }
+
+  .note { background: #EAF6F0; border-left: 4px solid #16A66A; padding: 14px 16px;
+          border-radius: 6px; margin: 24px 0; }
+
+  footer { margin: 56px 0 0; padding: 24px 0 64px; border-top: 1px solid #E6EDE9;
+           color: #64736C; font-size: 14px; }
+  a { color: #0B7A4B; }
+  footer a { color: #0B7A4B; }
+</style>
+</head>
+<body>
+
+<header>
+  <!-- The app's own mark, drawn inline so the page carries no external requests. -->
+  <svg width="64" height="77" viewBox="0 0 40 48" fill="none" aria-hidden="true">
+    <path d="M33.45 20.79A16 16 0 1 0 6.55 20.79L20 41.2Z" fill="#fff"/>
+    <rect x="17.58" y="12.85" width="4.84" height="16.3" rx="1" fill="#0B7A4B"/>
+    <rect x="12.85" y="17.58" width="16.3" height="4.84" rx="1" fill="#0B7A4B"/>
+  </svg>
+  <h1>Pharma Near You</h1>
+  <p class="tag">Find the pharmacies around you &mdash; and which of them are open right now.</p>
+</header>
+
+<div class="wrap">
+
+  <p>When you need a pharmacy you usually need it quickly, often at night, and often somewhere you do
+  not know. Pharma Near You answers that in one screen: the nearest pharmacies, sorted by distance,
+  each marked open or closed against its real opening hours, with a route one tap away.</p>
+
+  <div class="cards">
+    <div class="card">
+      <h3>Open right now</h3>
+      <p>Calculated from each pharmacy's own opening hours, with 24-hour ones highlighted.</p>
+    </div>
+    <div class="card">
+      <h3>Works offline</h3>
+      <p>Your country's data is downloaded once and kept on the phone. No signal needed after that.</p>
+    </div>
+    <div class="card">
+      <h3>Forty-four countries</h3>
+      <p>Pharmacies across Europe, from Portugal to Ukraine. English, Turkish and Bulgarian.</p>
+    </div>
+    <div class="card">
+      <h3>Your medicine shelf</h3>
+      <p>Keep your medicines, doses and notes. All of it stays on your phone.</p>
+    </div>
+  </div>
+
+  <h2>No account, no server</h2>
+  <div class="note">
+    There is nothing to sign up for and nothing of yours on anyone's server. Your notes, medicines and
+    profile never leave your phone, and your location is used on the device to sort pharmacies by
+    distance &mdash; it is not sent anywhere, because there is nowhere to send it.
+  </div>
+
+  <h2>Where the data comes from</h2>
+  <p>Pharmacy locations and opening hours come from
+  <a href="https://www.openstreetmap.org">OpenStreetMap</a>, maintained by its volunteers, and are
+  rebuilt daily. This site is also where the app fetches them from: one compressed file per country,
+  served as static files, which is the whole of the app's backend.</p>
+  <p>Opening hours are as accurate as the map data behind them. If it is urgent, especially at night,
+  please call ahead.</p>
+
+  <h2>Privacy</h2>
+  <p>The full policy is at <a href="privacy.html">privacy.html</a>.</p>
+
+  <h2>Contact</h2>
+  <p><a href="mailto:anilyakupogluu@gmail.com">anilyakupogluu@gmail.com</a></p>
+
+  <footer>
+    Pharmacy data &copy; OpenStreetMap contributors, licensed under the
+    <a href="https://opendatacommons.org/licenses/odbl/">Open Database License</a>.
+  </footer>
+
+</div>
+
+</body>
+</html>
