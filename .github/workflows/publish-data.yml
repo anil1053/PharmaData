@@ -1,0 +1,67 @@
+# Publishes the generated pharmacy data to GitHub Pages.
+#
+# The app downloads these files and answers every query from them, so this workflow is the app's
+# entire backend. There is no server: the data is generated, committed, and served as static files.
+#
+# Generation is deliberately NOT part of this workflow, and that is worth explaining because it looks
+# like an omission. The OpenStreetMap import walks forty-odd countries through a public Overpass
+# instance that rate-limits and occasionally refuses; it takes hours, and it needs a PostGIS database
+# to accumulate into. A hosted runner gives you a fresh, empty database every run and a six-hour
+# ceiling, so a CI import would start from nothing each time and could only ever finish part of the
+# job - publishing a set of files thinner than the one it replaced.
+#
+# So the files are generated on a machine that keeps its database, committed to dist/, and this
+# workflow publishes whatever is there. Automating the refresh is a later problem, and the shape it
+# wants is a runner with a persistent volume rather than this one.
+
+name: Publish data to Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "dist/**"
+      - ".github/workflows/publish-data.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deployment at a time, and a newer push wins. Cancelling an in-flight publish is safe here -
+# nothing is half-written, the site is replaced atomically or not at all.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check the data is actually there
+        run: |
+          # A publish that quietly ships an empty site is worse than a failed one: the app would keep
+          # asking for files that return 404 and show every user an empty map with no explanation.
+          if [ ! -f dist/index.json.gz ]; then
+            echo "dist/index.json.gz is missing - run the export before pushing:" >&2
+            echo "  dotnet run --project backend/tools/PharmacyFinder.DataExport -- --out ./dist" >&2
+            exit 1
+          fi
+          echo "Publishing:"
+          ls -lh dist/
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
